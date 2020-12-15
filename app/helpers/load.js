@@ -1,18 +1,19 @@
 import { helper } from '@ember/component/helper';
 import { assert } from '@ember/debug';
+import { tracked } from '@glimmer/tracking';
 
 class AsyncData {
   /**
     @type {'LOADING' | 'LOADED' | 'ERROR'}
     @private
   **/
-  _state = 'LOADING';
+  @tracked _state = 'LOADING';
 
   /** @private */
-  _value;
+  @tracked _value;
 
   /** @private */
-  _error;
+  @tracked _error;
 
   get state() {
     return this._state;
@@ -34,6 +35,18 @@ class AsyncData {
     );
 
     return this._error;
+  }
+
+  get isLoading() {
+    return this.state === 'LOADING';
+  }
+
+  get isLoaded() {
+    return this.state === 'LOADED';
+  }
+
+  get isError() {
+    return this.state === 'ERROR';
   }
 }
 
